@@ -5,22 +5,29 @@ import FoodIngredients from '../Components/FoodIngredients';
 import EmptyStar from '../Icon/star.png';
 import FullStar from '../Icon/fstar.png';
 import {FavContext} from '../Store/favcontext'; // Note the corrected import statement
-
+import {useSelector, useDispatch} from 'react-redux';
+import {addFav, removeFav} from '../Store/redux/fav';
 export default function FoodInfo({route, navigation}) {
-  const favFoodContext = useContext(FavContext); // Use FavContext instead of FavContextProvider
+  const favFoodIds = useSelector(state => state.favFood.ids);
+  // const favFoodContext = useContext(FavContext);
   const Foodid = route.params.FoodId;
   const selectedFood = FOODS.find(food => food.id === Foodid);
   console.log(selectedFood);
 
-  const isfav = favFoodContext.ids.includes(Foodid);
+  const dispatch = useDispatch();
+
+  // const isfav = favFoodContext.ids.includes(Foodid);
+  const isfav = favFoodIds.includes(Foodid);
 
   const changeFavourite = () => {
     if (isfav) {
       console.log('**********SİLİNDİ**********');
-      favFoodContext.removeFav(Foodid);
+      dispatch(removeFav({id: Foodid}));
+      // favFoodContext.removeFav(Foodid);
     } else {
       console.log('**********EKLENDİ**********');
-      favFoodContext.addFav(Foodid);
+      dispatch(addFav({id: Foodid}));
+      // favFoodContext.addFav(Foodid);
     }
   };
 

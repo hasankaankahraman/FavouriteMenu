@@ -4,10 +4,14 @@ import {FavContext} from '../Store/favcontext';
 import {FOODS} from '../Data/fooddata';
 import FoodList from '../Components/FoodList';
 import {View, Text} from 'react-native';
+import {useSelector} from 'react-redux';
 export default function FavouriteScreen() {
-  const favFoodContext = useContext(FavContext);
+  // const favFoodContext = useContext(FavContext);
+  const favFoodIds = useSelector(state => state.favFood.ids);
 
-  const favfoods = FOODS.filter(food => favFoodContext.ids.includes(food.id));
+  // const favfoods = FOODS.filter(food => favFoodContext.ids.includes(food.id));
+  const favfoods = FOODS.filter(food => favFoodIds.includes(food.id));
+
   if (favfoods.length === 0) {
     return (
       <View style={styles.container}>

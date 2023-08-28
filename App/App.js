@@ -8,6 +8,8 @@ import DetailScreen from './Screens/DetailScreen';
 import FoodInfo from './Screens/FoodInfo';
 import FavouriteScreen from './Screens/FavouriteScreen';
 import FavContextProvider from './Store/favcontext';
+import {Provider} from 'react-redux';
+import {store} from './Store/redux/store';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,7 +41,8 @@ const DrawerPage = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <FavContextProvider>
+      <Provider store={store}>
+        {/* <FavContextProvider> */}
         <Stack.Navigator
           screenOptions={{
             headerStyle: {backgroundColor: '#334F70'},
@@ -59,7 +62,8 @@ export default function App() {
           />
           <Stack.Screen name="Information" component={FoodInfo} />
         </Stack.Navigator>
-      </FavContextProvider>
+        {/* </FavContextProvider> */}
+      </Provider>
     </NavigationContainer>
   );
 }
